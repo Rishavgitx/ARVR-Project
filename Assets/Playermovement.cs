@@ -1,0 +1,35 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+ 
+public class Movement : MonoBehaviour //Code Made By Domi.theDev(www.youtube.com/@domi.thedev)
+{
+    public float moveSpeed;
+    CharacterController ch;
+
+    private float x;
+    private float y;
+    public float sensitivity = -1f;
+    private Vector3 rotate;
+ 
+    // Start is called before the first frame update
+    void Start()
+    {
+      ch = GetComponent<CharacterController>();
+      Cursor.lockState = CursorLockMode.Locked;
+    }
+ 
+ 
+    // Update is called once per frame
+    void Update()
+    {
+        float x = Input.GetAxis("Horizontal") * moveSpeed * Time.deltaTime;
+        float z = Input.GetAxis("Vertical") * moveSpeed * Time.deltaTime;
+        ch.Move(new Vector3(x,0,z));
+
+         y = Input.GetAxis("Mouse X");
+        x = Input.GetAxis("Mouse Y");
+        rotate = new Vector3(x, y * sensitivity, 0);
+        transform.eulerAngles = transform.eulerAngles - rotate;
+    }
+}
